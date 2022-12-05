@@ -1,0 +1,31 @@
+P = input("Введите последовательность чисел через пробел: ")
+P_preobr = [int(a) for a in P.split()]
+
+if (' ' not in (P)):
+    raise ValueError("Неверный разделитель. Введите последовательность чисел через пробел")
+
+try:
+    num_from_user = int(input("Введите любое число: "))
+    if type (num_from_user) == int:
+        P_preobr.append(num_from_user)
+        P_preobr.sort()
+        print("Список после сортировки по возрастанию: ", P_preobr)
+    else:
+        print ("Введены неверные данные, пожалуйста, введите целое число")
+except ValueError:
+        print ("Введены неверные данные, сортировка не может быть выполнена")
+        print ("Работа программы завершена")
+
+def binary_search(P_preobr, num_from_user, left, right):
+    if left > right:
+        return False
+    middle = (right + left) // 2
+    if P_preobr[middle] == num_from_user:
+        return middle
+    elif num_from_user < P_preobr[middle]:
+        return binary_search(P_preobr, num_from_user, left, middle - 1)
+    else:
+        return binary_search(P_preobr, num_from_user, middle + 1, right)
+
+
+print("Номер позиции элемента, который меньше введенного пользователем числа, а следующий за ним больше или равен этому числу:", binary_search(P_preobr, num_from_user, 0, len(P_preobr)-1))
